@@ -1,43 +1,79 @@
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import React from 'react';
+import TodoFeature from './features/Todo';
+import AlbumFeature from './features/Album';
+import ColorBox from './components/ColorBox';
+import Counter from './components/Counter';
+
+function One() {
+  return (<div>
+    <h2>So 1 tap 1</h2>
+    <h3>So 1 tap 2</h3>
+  </div>)
+}
+
+var Two = function () {
+  return (<div>
+    <h3>So 2 tap 1</h3>
+    <h3>So 2 tap 2</h3>
+  </div>)
+}
+var Three = () => (<div>
+  <h3>So 3 tap 1</h3>
+  <h3>So 3 tap 2</h3>
+</div>)
 
 function App() {
   const age = 18;
-  const name = "Tung";
-  const isMale = true;
-  const student = { name: 'Tung' };
-  const colotList = ['red', 'green', 'blue'];
+  const name = 'TTT';
+  const isFemale = true;
+  const student = {
+    name: 'Easy Frontend'
+  };
+  const colorList = ['red', 'green', 'blue'];
+
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Tung Tran</p>
-        <p>Xin chao {name} - {age} - {!isMale ? 'Female' : 'Male'}</p>
-        {!isMale ? <p>Female</p> : <p>Male</p>}
-        {!isMale && <p>Female</p>}
-        {isMale && (
-          <React.Fragment>
-            <p>Male 1</p>
-            <p>Male 2</p>
-            <p>Male 3</p>
-          </React.Fragment>
-        )}
-        {isMale && (
-          <>
-            <p>Male 1</p>
-            <p>Male 2</p>
-            <p>Male 3</p>
-          </>
-        )}
-        {isMale && <p>Male</p>}
-        <p>{student.name}</p>
-        <ul>
-          {colotList.map((color, index) => (
-            <li key={index} style={{ color }}>{color}</li>
-          ))}
-        </ul>
+        <p>Xin chào {name} - {age} - {isFemale ? 'Female' : 'Male'}</p>
+        {isFemale ? <p>Female</p> : <p>Male</p>}
+        {isFemale &&
+          (<>
+            <p>Female 1</p>
+            <p>Female 2</p>
+            <p>Female 3</p>
+          </>)
+        }
+        {isFemale &&
+          (<div>
+            <p>Female 1</p>
+            <p>Female 2</p>
+            <p>Female 3</p>
+          </div>)
+        }
+        {isFemale &&
+          (<React.Fragment>
+            <p>Female 1</p>
+            <p>Female 2</p>
+            <p>Female 3</p>
+          </React.Fragment>)
+        }
+        {!isFemale && <p>Male</p>}
+
+        <p>student.name: {student.name}</p>
+
+        <ol>
+          {colorList.map(color => <li style={{ color }}>{color}</li>)}
+        </ol>
       </header>
+       */}
+
+      <TodoFeature />
+      {/* <AlbumFeature /> */}
+      {/* <ColorBox /> */}
+      {/* <Counter /> */}
     </div>
   );
 }
