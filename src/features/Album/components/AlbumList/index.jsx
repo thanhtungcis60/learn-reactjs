@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.scss'
 import Album from '../Album/index.jsx';
+import './styles.scss';
 
 AlbumList.propTypes = {
     albumList: PropTypes.array.isRequired,

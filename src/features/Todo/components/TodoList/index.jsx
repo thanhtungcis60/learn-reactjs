@@ -23,8 +23,8 @@ function TodoList({ todoList, onTodoClick }) {
                 <li
                     key={todo.id}
                     className={classnames({
-                        'todo-item': true,
-                        completed: todo.status === 'completed'
+                        'todo-item': true,// class luôn có
+                        completed: todo.status === 'completed'// class có thể có
                     })}
                     onClick={() => handleTodoClick(todo, idx)}
                 >

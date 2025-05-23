@@ -70,9 +70,9 @@ function App() {
       </header>
        */}
 
-      <TodoFeature />
+      {/* <TodoFeature /> */}
       {/* <AlbumFeature /> */}
-      {/* <ColorBox /> */}
+      <ColorBox />
       {/* <Counter /> */}
     </div>
   );
