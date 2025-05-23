@@ -6,6 +6,7 @@ import AlbumFeature from './features/Album';
 import ColorBox from './components/ColorBox';
 import Counter from './components/Counter';
 import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 function One() {
   return (<div>
@@ -41,10 +42,22 @@ function App() {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   }
+  function handleTodoFormSubmit(formValues) {
+    console.log("todo form submit", formValues);
+    const newTodo = {
+      id: todoList.length + 1,
+      title: formValues.title,
+    }
+    const newTodoList = [...todoList];
+    newTodoList.push(newTodo);
+    setTodoList(newTodoList);
+  }
 
   return (
     <div className="app">
       <h1>React hooks - TodoList</h1>
+      <TodoForm onSubmit={handleTodoFormSubmit} ></TodoForm>
+
       <TodoList todos={todoList} onTodoClick={handleTodoClick} />
     </div>
   );
