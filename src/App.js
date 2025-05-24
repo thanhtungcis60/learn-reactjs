@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 // import './App.css';
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
 import ColorBox from './components/ColorBox';
 import Counter from './components/Counter';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import PostList from './components/PostList';
 
 function One() {
   return (<div>
@@ -33,6 +34,37 @@ function App() {
     { id: 3, title: 'They love Easy Frontend! 🚀' },
   ]);
 
+  // Giả định bạn có một state để lưu trữ danh sách bài viết
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    async function fetchPostList() {
+      // Logic để fetch danh sách bài viết từ API
+      try {
+        const requestUrl = 'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
+        const response = await fetch(requestUrl);
+        const responseJSON = await response.json();
+        console.log({ responseJSON }); // In ra dữ liệu JSON nhận được
+
+        const { data } = responseJSON; // Lấy trường 'data' từ responseJSON
+        setPostList(data); // Cập nhật state `postList` với dữ liệu nhận được
+      } catch (error) {
+        console.log('Failed to fetch post list: ', error.message); // Xử lý lỗi nếu có
+      }
+    }
+    console.log('PostList effect ');
+    fetchPostList(); // Gọi hàm fetchPostList khi component mount
+
+    // TODO: Bạn có thể thêm dependency array vào useEffect nếu cần chạy lại khi có sự thay đổi
+    // Ví dụ: useEffect(() => { ... }, [someDependency]);
+    // Nếu dependency array là rỗng (`[]`), nó sẽ chỉ chạy một lần sau lần render đầu tiên.
+  }, []); // Dependency array rỗng, hàm này sẽ chỉ chạy một lần khi component mount
+
+  useEffect(() => {
+    console.log('TODO list effect ');
+  });
+
+
   function handleTodoClick(todo) {
     console.log(todo);
     const index = todoList.findIndex(x => x.id === todo.id);
@@ -55,10 +87,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>React hooks - TodoList</h1>
-      <TodoForm onSubmit={handleTodoFormSubmit} ></TodoForm>
-
-      <TodoList todos={todoList} onTodoClick={handleTodoClick} />
+      <h1>React hooks - PostList</h1>
+      {/* <TodoForm onSubmit={handleTodoFormSubmit} ></TodoForm> */}
+      {/* <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
+      <PostList posts={postList} ></PostList>
     </div>
   );
 }
