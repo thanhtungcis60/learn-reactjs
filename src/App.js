@@ -8,6 +8,8 @@ import Counter from './components/Counter';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import PostList from './components/PostList';
+import Pagination from './components/Pagination';
+import queryString from 'query-string';
 
 function One() {
   return (<div>
@@ -36,18 +38,29 @@ function App() {
 
   // Giả định bạn có một state để lưu trữ danh sách bài viết
   const [postList, setPostList] = useState([]);
+  const [pagination, setPagination] = useState({
+    _page: 1,
+    _limit: 10,
+    _totalRows: 11,
+  });
 
+  const [filters, setfilters] = useState({
+    _page: 1,
+    _limit: 10
+  });
   useEffect(() => {
     async function fetchPostList() {
       // Logic để fetch danh sách bài viết từ API
       try {
-        const requestUrl = 'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
+        const paramsString = queryString.stringify(filters); // Chuyển đổi filters thành chuỗi query
+        const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`; // Tạo URL với query string
         const response = await fetch(requestUrl);
         const responseJSON = await response.json();
         console.log({ responseJSON }); // In ra dữ liệu JSON nhận được
 
-        const { data } = responseJSON; // Lấy trường 'data' từ responseJSON
+        const { data, pagination } = responseJSON; // Lấy trường 'data' từ responseJSON
         setPostList(data); // Cập nhật state `postList` với dữ liệu nhận được
+        setPagination(pagination); // Cập nhật state `pagination` với dữ liệu phân trang
       } catch (error) {
         console.log('Failed to fetch post list: ', error.message); // Xử lý lỗi nếu có
       }
@@ -58,12 +71,20 @@ function App() {
     // TODO: Bạn có thể thêm dependency array vào useEffect nếu cần chạy lại khi có sự thay đổi
     // Ví dụ: useEffect(() => { ... }, [someDependency]);
     // Nếu dependency array là rỗng (`[]`), nó sẽ chỉ chạy một lần sau lần render đầu tiên.
-  }, []); // Dependency array rỗng, hàm này sẽ chỉ chạy một lần khi component mount
+  }, [filters]); // Dependency array rỗng, hàm này sẽ chỉ chạy một lần khi component mount
 
   useEffect(() => {
     console.log('TODO list effect ');
+
   });
 
+  function handlePageChange(newPage) {
+    console.log('New page: ', newPage);
+    setfilters({
+      ...filters,
+      _page: newPage
+    });
+  }
 
   function handleTodoClick(todo) {
     console.log(todo);
@@ -91,6 +112,7 @@ function App() {
       {/* <TodoForm onSubmit={handleTodoFormSubmit} ></TodoForm> */}
       {/* <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
       <PostList posts={postList} ></PostList>
+      <Pagination pagination={pagination} onPageChange={handlePageChange}></Pagination>
     </div>
   );
 }
