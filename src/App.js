@@ -12,6 +12,7 @@ import Pagination from './components/Pagination';
 import queryString from 'query-string';
 import PostFiltersForm from './components/PostFiltersForm';
 import Clock from './components/Clock';
+import BetterClock from './components/BetterClock';
 
 function One() {
   return (<div>
@@ -128,6 +129,7 @@ function App() {
       <PostList posts={postList} ></PostList>
       <Pagination pagination={pagination} onPageChange={handlePageChange}></Pagination> */}
       {showClock && <Clock />}
+      <BetterClock />
       <button onClick={() => setShowClock(!showClock)}>
         {showClock ? 'Hide Clock' : 'Show Clock'}
       </button>
