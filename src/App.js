@@ -11,6 +11,7 @@ import PostList from './components/PostList';
 import Pagination from './components/Pagination';
 import queryString from 'query-string';
 import PostFiltersForm from './components/PostFiltersForm';
+import Clock from './components/Clock';
 
 function One() {
   return (<div>
@@ -116,14 +117,20 @@ function App() {
     });
   }
 
+  const [showClock, setShowClock] = useState(true);
   return (
     <div className="app">
-      <h1>React hooks - PostList</h1>
+      <h1>React hooks - Clock</h1>
       {/* <TodoForm onSubmit={handleTodoFormSubmit} ></TodoForm> */}
       {/* <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
-      <PostFiltersForm onSubmit={handleFiltersChange}></PostFiltersForm>
+
+      {/* <PostFiltersForm onSubmit={handleFiltersChange}></PostFiltersForm>
       <PostList posts={postList} ></PostList>
-      <Pagination pagination={pagination} onPageChange={handlePageChange}></Pagination>
+      <Pagination pagination={pagination} onPageChange={handlePageChange}></Pagination> */}
+      {showClock && <Clock />}
+      <button onClick={() => setShowClock(!showClock)}>
+        {showClock ? 'Hide Clock' : 'Show Clock'}
+      </button>
     </div>
   );
 }
