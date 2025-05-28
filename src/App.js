@@ -13,6 +13,7 @@ import queryString from 'query-string';
 import PostFiltersForm from './components/PostFiltersForm';
 import Clock from './components/Clock';
 import BetterClock from './components/BetterClock';
+import MagicBox from './components/MagicBox';
 
 function One() {
   return (<div>
@@ -128,11 +129,14 @@ function App() {
       {/* <PostFiltersForm onSubmit={handleFiltersChange}></PostFiltersForm>
       <PostList posts={postList} ></PostList>
       <Pagination pagination={pagination} onPageChange={handlePageChange}></Pagination> */}
-      {showClock && <Clock />}
+
+      {/* {showClock && <Clock />}
       <BetterClock />
       <button onClick={() => setShowClock(!showClock)}>
         {showClock ? 'Hide Clock' : 'Show Clock'}
       </button>
+       */}
+      <MagicBox />
     </div>
   );
 }
