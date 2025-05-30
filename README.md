@@ -3,6 +3,7 @@ npm i -f
 npm install --save-dev node-sass
 npm i --save classnames
 npm i --save query-string
+npm i react-router-dom@^5
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
