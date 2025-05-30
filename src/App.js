@@ -22,20 +22,16 @@ function App() {
       <Hero name="Hero Name" /> */}
       {/* <Counter /> */}
       <p>
-        <Link to="/todos">Go to Todo</Link>
-      </p>
-      <p>
-        <Link to="/albums">Go to Albums</Link>
-      </p>
-      <p>
         <NavLink to="/todos">Go to Todo</NavLink>{/* Khác biệt với Link, NavLink sẽ tự động thêm class active nếu đường dẫn hiện tại khớp với đường dẫn của NavLink */}
       </p>
       <p>
         <NavLink to="/albums">Go to Albums</NavLink>
       </p>
-
-      <Route path="/todos" component={TodoFeature} />
-      <Route path="/albums" component={AlbumFeature} />
+      <switch>
+        <Route path="/" component={TodoFeature} />
+        <Route path="/todos" component={TodoFeature} />
+        <Route path="/albums" component={AlbumFeature} />
+      </switch>
     </div>
   );
 }
