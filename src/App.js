@@ -5,6 +5,7 @@ import Counter from './components/Counter';
 import { Route } from 'react-router-dom';
 import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
+import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 App.propTypes = {
 
@@ -20,6 +21,19 @@ function App() {
       <button onClick={() => setCount(count + 1)}>Increase</button>
       <Hero name="Hero Name" /> */}
       {/* <Counter /> */}
+      <p>
+        <Link to="/todos">Go to Todo</Link>
+      </p>
+      <p>
+        <Link to="/albums">Go to Albums</Link>
+      </p>
+      <p>
+        <NavLink to="/todos">Go to Todo</NavLink>{/* Khác biệt với Link, NavLink sẽ tự động thêm class active nếu đường dẫn hiện tại khớp với đường dẫn của NavLink */}
+      </p>
+      <p>
+        <NavLink to="/albums">Go to Albums</NavLink>
+      </p>
+
       <Route path="/todos" component={TodoFeature} />
       <Route path="/albums" component={AlbumFeature} />
     </div>
