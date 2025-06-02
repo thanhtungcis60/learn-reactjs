@@ -5,7 +5,7 @@ import Counter from './components/Counter';
 import { Route } from 'react-router-dom';
 import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
-import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, NavLink, Redirect, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
 App.propTypes = {
 
@@ -27,11 +27,19 @@ function App() {
       <p>
         <NavLink to="/albums">Go to Albums</NavLink>
       </p>
-      <switch>
-        <Route path="/" component={TodoFeature} />
+      <Switch>
+        <Redirect from="/home" to="/" exact />
+        <Route
+          path="/post-list/:postId"
+          exact
+          render={({ match }) => (
+            <Redirect to={`/posts/${match.params.postId}`} />
+          )}
+        />
+        <Route path="/" component={TodoFeature} exact />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
-      </switch>
+      </Switch>
     </div>
   );
 }
