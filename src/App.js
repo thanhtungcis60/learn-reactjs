@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
 import { Link, NavLink, Redirect, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import NotFound from './components/NotFound';
 
 App.propTypes = {
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/" component={TodoFeature} exact />
         <Route path="/todos-list" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );
