@@ -7,9 +7,16 @@ npm i react-router-dom@^5
 npm install react@17 react-dom@17
 npm install @material-ui/core@4 --legacy-peer-deps --save
 npm install @material-ui/icons@4 --legacy-peer-deps --save
+npm i --save axios@1.6.8 --legacy-peer-deps
 
 //Extension:
 Prettier
+ES7+ React/Redux/React-Native snippets
+ESLint
+GitHub Copilot
+JavaScript (ES6) code snippets
+Reactjs code snippets
+SCSS Formatter
 
 # Getting Started with Create React App
 
