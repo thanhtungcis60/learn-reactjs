@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Hero from './components/Hero';
 import './App.scss';
 import Counter from './components/Counter';
@@ -7,6 +7,7 @@ import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
 import { Link, NavLink, Redirect, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './components/NotFound';
+import productAPI from './api/productAPI';
 
 App.propTypes = {
 
@@ -14,6 +15,17 @@ App.propTypes = {
 
 function App() {
   const [count, setCount] = React.useState(0);
+  useEffect(() => {
+    const params = {
+      _limit:10,
+    };
+    const fetchProducts = async () => {
+      const productList = await productAPI.getAll(params);
+      console.log({ productList });
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className='app'>
