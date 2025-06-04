@@ -1,9 +1,16 @@
-RUN: 
+RUN:
 npm i -f
 npm install --save-dev node-sass
 npm i --save classnames
 npm i --save query-string
 npm i react-router-dom@^5
+npm install react@17 react-dom@17
+npm install @material-ui/core@4 --legacy-peer-deps --save
+npm install @material-ui/icons@4 --legacy-peer-deps --save
+
+//Extension:
+Prettier
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
