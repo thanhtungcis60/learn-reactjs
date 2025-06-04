@@ -2,6 +2,7 @@ import { use, useEffect, useMemo, useState } from 'react';
 import TodoList from '../../components/TodoList';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import queryString from 'query-string';
+import TodoForm from '../../components/TodoForm';
 
 ListPage.propTypes = {
 
@@ -85,8 +86,13 @@ function ListPage(props) {
     }, [todoList, filteredStatus]); //re-render when todoList or filteredStatus changes
 
     // console.log(renderedTodoList);
+    const handleTodoFormSubmit = (values) => {
+        console.log('Form submit: ', values);
+    }
     return (
         <div>
+            <h3>TodoForm</h3>
+            <TodoForm onSubmit={handleTodoFormSubmit}/>
             <h3>Todo List</h3>
             <TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick} />
             <div>

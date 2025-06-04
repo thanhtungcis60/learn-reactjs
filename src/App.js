@@ -15,17 +15,17 @@ App.propTypes = {
 
 function App() {
   const [count, setCount] = React.useState(0);
-  useEffect(() => {
-    const params = {
-      _limit:10,
-    };
-    const fetchProducts = async () => {
-      const productList = await productAPI.getAll(params);
-      console.log({ productList });
-    };
+  // useEffect(() => {
+  //   const params = {
+  //     _limit:10,
+  //   };
+  //   const fetchProducts = async () => {
+  //     const productList = await productAPI.getAll(params);
+  //     console.log({ productList });
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
 
   return (
     <div className='app'>

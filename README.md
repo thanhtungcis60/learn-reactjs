@@ -1,13 +1,14 @@
 RUN:
 npm i -f
-npm install --save-dev node-sass
+npm i --save-dev node-sass
 npm i --save classnames
 npm i --save query-string
 npm i react-router-dom@^5
-npm install react@17 react-dom@17
-npm install @material-ui/core@4 --legacy-peer-deps --save
-npm install @material-ui/icons@4 --legacy-peer-deps --save
+npm i react@17 react-dom@17
+npm i @material-ui/core@4 --legacy-peer-deps --save
+npm i @material-ui/icons@4 --legacy-peer-deps --save
 npm i --save axios@1.6.8 --legacy-peer-deps
+npm i --save react-hook-form@^6.15.6 yup@1.2.0 @hookform/resolvers@^1.3.7 @hookform/error-message@2.0.0 --legacy-peer-deps
 
 //Extension:
 Prettier
