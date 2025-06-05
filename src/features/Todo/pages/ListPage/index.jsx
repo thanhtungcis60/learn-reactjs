@@ -87,7 +87,21 @@ function ListPage(props) {
 
     // console.log(renderedTodoList);
     const handleTodoFormSubmit = (values) => {
-        console.log('Form submit: ', values);
+        console.log('Form submit:', values); // In ra dữ liệu nhận được từ form
+
+        // Tạo một đối tượng todo mới
+        const newTodo = {
+            id: todoList.length + 1,
+            title: values.title, // Lấy tiêu đề từ giá trị form đã submit
+            status: 'new', // Đặt trạng thái mặc định là 'new'
+        };
+
+        // Tạo một danh sách todo mới bằng cách thêm newTodo vào cuối danh sách hiện có
+        // Sử dụng spread operator (...) để tạo một bản sao mới của mảng, đảm bảo tính bất biến (immutability)
+        const newTodoList = [...todoList, newTodo];
+
+        // Cập nhật state todoList với danh sách mới
+        setTodoList(newTodoList);
     }
     return (
         <div>
