@@ -2,16 +2,22 @@ import React, { use } from 'react';
 import PropTypes from 'prop-types';
 import InputField from '../../../../components/form-controls/InputField';
 import { useForm } from 'react-hook-form/dist/index.ie11';
+import * as yup from "yup"
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 
 TodoForm.propTypes = {
     onSubmit: PropTypes.func
 };
 
 function TodoForm(props) {
+    const schema = yup.object().shape({
+        title: yup.string().required('Please enter todo title').min(5, 'Title must be at least 5 characters long')
+    });
     const form = useForm({
         defaultValues: {
             title: '',
-        }
+        },
+        resolver: yupResolver(schema),
     });
 
     const handleSubmit = (values) => {
