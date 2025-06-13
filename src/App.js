@@ -8,6 +8,7 @@ import AlbumFeature from './features/Album';
 import { Link, NavLink, Redirect, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './components/NotFound';
 import productAPI from './api/productAPI';
+import CounterFeature from './features/Counter';
 
 App.propTypes = {
 
@@ -49,10 +50,10 @@ function App() {
             <Redirect to={`/posts/${match.params.postId}`} />
           )}
         />
-        <Route path="/" component={TodoFeature} exact />
+        <Route path="/" component={CounterFeature} exact />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
       </Switch>
     </div>
   );
