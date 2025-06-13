@@ -1,9 +1,10 @@
 import React, { use } from 'react';
 import PropTypes from 'prop-types';
-import InputField from '../../../../components/form-controls/InputField';
 import { useForm } from 'react-hook-form/dist/index.ie11';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
+// import InputField from '../../../../components/form-controls/InputField';
+import InputField from 'components/form-controls/InputField';
 
 TodoForm.propTypes = {
     onSubmit: PropTypes.func
