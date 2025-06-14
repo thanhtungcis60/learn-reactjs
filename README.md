@@ -10,6 +10,7 @@ npm i @material-ui/icons@4 --legacy-peer-deps --save
 npm i --save axios@1.6.8 --legacy-peer-deps
 npm i --save react-hook-form@^6.15.6 yup@1.2.0 @hookform/resolvers@^1.3.7 @hookform/error-message@2.0.0 --legacy-peer-deps
 npm install @reduxjs/toolkit@^1.9 react-redux@^7.2 --legacy-peer-deps
+npm install styled-components@^5.0.0 --legacy-peer-deps
 
 //Extension:
 Prettier

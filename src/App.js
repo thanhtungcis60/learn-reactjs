@@ -9,6 +9,14 @@ import { Link, NavLink, Redirect, Switch } from 'react-router-dom/cjs/react-rout
 import NotFound from './components/NotFound';
 import productAPI from './api/productAPI';
 import CounterFeature from './features/Counter';
+import styled from 'styled-components';
+
+//Styled-components CSS in JS
+const Title = styled.h1`
+  text-align: center;
+  font-weight: bold;
+  color: ${props => props.color || 'green'};
+`;
 
 App.propTypes = {
 
@@ -30,6 +38,7 @@ function App() {
 
   return (
     <div className='app'>
+      <Title color="skyblue">Heading</Title>
       <h1>React Route</h1>
       {/* <p>Count: {count}</p>
       <button onClick={() => setCount(count + 1)}>Increase</button>
