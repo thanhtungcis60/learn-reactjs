@@ -10,6 +10,7 @@ import NotFound from './components/NotFound';
 import productAPI from './api/productAPI';
 import CounterFeature from './features/Counter';
 import styled from 'styled-components';
+import Header from 'components/Header';
 
 //Styled-components CSS in JS
 const Title = styled.h1`
@@ -38,7 +39,8 @@ function App() {
 
   return (
     <div className='app'>
-      <Title color="skyblue">Heading</Title>
+      {/* <Title color="skyblue">Heading</Title> */}
+      <Header></Header>
       <h1>React Route</h1>
       {/* <p>Count: {count}</p>
       <button onClick={() => setCount(count + 1)}>Increase</button>
