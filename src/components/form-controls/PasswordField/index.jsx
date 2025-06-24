@@ -1,4 +1,4 @@
-import { FilledInput, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
+import { FilledInput, FormControl, FormHelperText, InputAdornment, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ function PasswordField(props) {
 
     const { form, name, label, disabled } = props;
     const { errors, formState } = form;
-    const hasError = formState.touched[name] && errors[name];
+    const hasError = errors[name];//formState.touched[name] && errors[name];
     console.log(errors[name], formState.touched[name]);
     return (
         <div>
@@ -69,8 +69,10 @@ function PasswordField(props) {
                     label={label}
                     disabled={disabled}
                     error={!!hasError} //Material UI
-                    helperText={errors[name]?.message}
                 />
+                <FormHelperText error={!!hasError}>
+                    {errors[name]?.message}
+                </FormHelperText>
             </FormControl>
         </div>
     );
