@@ -27,7 +27,7 @@ function PasswordField(props) {
 
     const { form, name, label, disabled } = props;
     const { errors, formState } = form;
-    const hasError = errors[name];//formState.touched[name] && errors[name];
+    const hasError = !!errors[name];//formState.touched[name] && errors[name];
     console.log(errors[name], formState.touched[name]);
     return (
         <div>
@@ -43,7 +43,7 @@ function PasswordField(props) {
                 error={!!hasError} //Material UI
                 helperText={errors[name]?.message}//Material UI
             /> */}
-            <FormControl fullWidth margin='normal' variant="outlined">
+            <FormControl error={hasError} fullWidth margin='normal' variant="outlined">
                 <InputLabel htmlFor={name}>{label}</InputLabel>
                 <Controller
                     name={name}
@@ -68,9 +68,9 @@ function PasswordField(props) {
                     }
                     label={label}
                     disabled={disabled}
-                    error={!!hasError} //Material UI
+                //Material UI
                 />
-                <FormHelperText error={!!hasError}>
+                <FormHelperText>
                     {errors[name]?.message}
                 </FormHelperText>
             </FormControl>

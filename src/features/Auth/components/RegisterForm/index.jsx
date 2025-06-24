@@ -45,6 +45,10 @@ function RegisterForm(props) {
         password: yup.string()
             .required('Please enter your password')
             .min(6, 'Password must be at least 6 characters long'),
+        retypePassword: yup.string()
+            .required('Please retype your password')
+            .oneOf([yup.ref('password')], 'Password does not match'),
+
     });
     const form = useForm({
         defaultValues: {
