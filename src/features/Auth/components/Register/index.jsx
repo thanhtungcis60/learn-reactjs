@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { register } from 'features/Auth/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 
