@@ -54,17 +54,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+const MODE = {
+  REGISTER: 'R',
+  LOGIN: 'L',
+}
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
+  const [mode, setMode] = useState(MODE.LOGIN);
 
-  const handleClickOpen = (actionName) => {
-    if (actionName === "L") {
-      setOpenLogin(true);
-    } else {
-      setOpen(true);
-    }
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -72,17 +71,11 @@ export default function Header() {
     if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
       return;
     }
-    open && setOpen(false);
-    openLogin && setOpenLogin(false);
+    setOpen(false);
   };
 
   const classes = useStyles();
-  let formContent = null;
-  if (open) {
-    formContent = <Register closeDialog={handleClose} />;
-  } else if (openLogin) {
-    formContent = <Login closeDialog={handleClose} />;
-  }
+
   return (
     <div className={classes.root}>
       <Box sx={{ flexGrow: 1 }}>
@@ -94,14 +87,13 @@ export default function Header() {
             </Typography>
             <NavLink className={classes.link} to="/todos"><Button color="inherit">Todos</Button></NavLink>
             <NavLink className={classes.link} to="/albums"><Button color="inherit">Albums</Button></NavLink>
-            <Button color="inherit" onClick={() => handleClickOpen("L")}>Login</Button>
-            <Button color="inherit" onClick={() => handleClickOpen("R")}>Regeister</Button>
+            <Button color="inherit" onClick={handleClickOpen}>Login or Regeister</Button>
           </Toolbar>
         </AppBar>
       </Box>
 
       <Dialog
-        open={open || openLogin}
+        open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -110,7 +102,23 @@ export default function Header() {
         </IconButton>
         <DialogContent>
           <DialogContentText>
-            {formContent}
+            {mode === MODE.REGISTER && (
+              <>
+                <Register closeDialog={handleClose} />
+                <Box textAlign="center">
+                  <Button color='primary' onClick={() => setMode(MODE.LOGIN)}>Already have an account.Login here.</Button>
+                </Box>
+              </>
+            )}
+
+            {mode === MODE.LOGIN && (
+              <>
+                <Login closeDialog={handleClose} />
+                <Box textAlign="center">
+                  <Button color='primary' onClick={() => setMode(MODE.REGISTER)}>Do not have an account.Register here.</Button>
+                </Box>
+              </>
+            )}
           </DialogContentText>
         </DialogContent>
 
