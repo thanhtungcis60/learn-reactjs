@@ -36,10 +36,7 @@ function Register(props) {
 
         } catch (error) {
             console.log('Failed to register:', JSON.stringify(error));
-            enqueueSnackbar('Failed to register!', { variant: 'error', autoHideDuration: 5000 });
-            if (closeDialog) {
-                closeDialog(); // Đóng dialog nếu có
-            }
+            enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 5000 });
         }
     };
     return (

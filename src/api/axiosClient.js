@@ -25,6 +25,20 @@ axiosClient.interceptors.response.use(function (response) {
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    const { config,status, data } = error.response || {};
+    if(!config) {
+      // Nếu không có config thì có thể là lỗi mạng hoặc server không phản hồi
+      throw new Error('Network error or server is not responding');
+    }
+    if(config.url === '/auth/local/register' && status === 400) {
+      // Nếu là lỗi đăng ký thì trả về lỗi
+      const errorList = data.data || [];
+      const firstError = errorList.length > 0 ? errorList[0] : {};
+      const messageList = firstError.messages || [];
+      const firstMessage = messageList.length > 0 ? messageList[0] : {};
+      throw new Error(firstMessage.message || 'Something went wrong!');
+    }
+    
     return Promise.reject(error);
   });
 

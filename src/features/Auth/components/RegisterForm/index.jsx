@@ -73,7 +73,7 @@ function RegisterForm(props) {
         if (onSubmit) {
             await onSubmit(values);
         }
-        form.reset(); //reset form after submit
+        // form.reset(); //reset form after submit //đóng lại để sửa khi mà gặp lỗi
     }
     return (
         <div className={classes.root} >
