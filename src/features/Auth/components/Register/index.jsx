@@ -3,11 +3,18 @@ import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
 import { register } from 'features/Auth/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 
+RegisterForm.propTypes = {
+    closeDialog: PropTypes.func,
+};
 
 
 function Register(props) {
+    const { closeDialog } = props;
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async (values) => {
         try {
@@ -19,9 +26,20 @@ function Register(props) {
             // unwrapResult chỉ có sẵn nếu 'action' là một createAsyncThunk action
             // import { unwrapResult } from '@reduxjs/toolkit'; 
             const user = unwrapResult(resultAction);
+
+
             console.log('New user', user);
+            enqueueSnackbar('Register successfully!', { variant: 'success', autoHideDuration: 3000 });
+            if (closeDialog) {
+                closeDialog(); // Đóng dialog nếu có
+            }
+
         } catch (error) {
-            console.log('Failed to register:', error);
+            console.log('Failed to register:', JSON.stringify(error));
+            enqueueSnackbar('Failed to register!', { variant: 'error', autoHideDuration: 5000 });
+            if (closeDialog) {
+                closeDialog(); // Đóng dialog nếu có
+            }
         }
     };
     return (

@@ -11,6 +11,8 @@ import productAPI from './api/productAPI';
 import CounterFeature from './features/Counter';
 import styled from 'styled-components';
 import Header from 'components/Header';
+import { Button } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 
 //Styled-components CSS in JS
 const Title = styled.h1`
@@ -36,11 +38,19 @@ function App() {
 
   //   fetchProducts();
   // }, []);
+  const { enqueueSnackbar } = useSnackbar();
+  const showNoti = () => {
+    enqueueSnackbar('This is a notification', {
+      variant: 'info',
+      autoHideDuration: 3000
+    });
+  }
 
   return (
     <div className='app'>
       {/* <Title color="skyblue">Heading</Title> */}
       <Header></Header>
+      <Button onClick={showNoti}>Show noti</Button>
       <h1>React Route</h1>
       {/* <p>Count: {count}</p>
       <button onClick={() => setCount(count + 1)}>Increase</button>

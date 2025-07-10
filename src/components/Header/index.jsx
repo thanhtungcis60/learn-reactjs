@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  link:{
+  link: {
     textDecoration: 'none',
     color: '#fff',
   }
@@ -54,46 +54,46 @@ export default function Header() {
 
   const handleClose = (event, reason) => {
     // Nếu reason là 'backdropClick', 'escapeKeyDown', không làm gì cả (không đóng Dialog)
-    if (reason === 'backdropClick'|| reason === 'escapeKeyDown') {
+    if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
       return;
     }
     setOpen(false);
   };
 
-    const classes = useStyles();
+  const classes = useStyles();
   return (
     <div className={classes.root}>
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <CodeIcon className={classes.menuButton}/>
-          <Typography variant="h6" className={classes.title}>
-            <Link className={classes.link} to="/">EZ Shop</Link>
-          </Typography>
-          <NavLink className={classes.link} to="/todos"><Button color="inherit">Todos</Button></NavLink>
-          <NavLink className={classes.link} to="/albums"><Button color="inherit">Albums</Button></NavLink>
-          <Button color="inherit" onClick={handleClickOpen}>Regeister</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <CodeIcon className={classes.menuButton} />
+            <Typography variant="h6" className={classes.title}>
+              <Link className={classes.link} to="/">EZ Shop</Link>
+            </Typography>
+            <NavLink className={classes.link} to="/todos"><Button color="inherit">Todos</Button></NavLink>
+            <NavLink className={classes.link} to="/albums"><Button color="inherit">Albums</Button></NavLink>
+            <Button color="inherit" onClick={handleClickOpen}>Regeister</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
 
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
-      <DialogContent>
-        <DialogContentText>
-          <Register></Register>
-        </DialogContentText>
-      </DialogContent>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+          <DialogContentText>
+            <Register closeDialog={handleClose}></Register>
+          </DialogContentText>
+        </DialogContent>
 
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-      </DialogActions>
-    </Dialog>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
