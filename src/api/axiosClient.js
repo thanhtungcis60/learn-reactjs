@@ -30,7 +30,11 @@ axiosClient.interceptors.response.use(function (response) {
       // Nếu không có config thì có thể là lỗi mạng hoặc server không phản hồi
       throw new Error('Network error or server is not responding');
     }
-    if(config.url === '/auth/local/register' && status === 400) {
+    const arrURL = [
+      '/auth/local/register',
+      '/auth/local'
+    ];
+    if(arrURL.includes(config.url) && status === 400) {
       // Nếu là lỗi đăng ký thì trả về lỗi
       const errorList = data.data || [];
       const firstError = errorList.length > 0 ? errorList[0] : {};

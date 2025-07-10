@@ -26,6 +26,7 @@ import Typography from '@material-ui/core/Typography';
 import { Close } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
 import { hover } from '@testing-library/user-event/dist/hover';
+import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
@@ -56,9 +57,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (actionName) => {
+    if (actionName === "L") {
+      setOpenLogin(true);
+    } else {
+      setOpen(true);
+    }
   };
 
   const handleClose = (event, reason) => {
@@ -66,10 +72,17 @@ export default function Header() {
     if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
       return;
     }
-    setOpen(false);
+    open && setOpen(false);
+    openLogin && setOpenLogin(false);
   };
 
   const classes = useStyles();
+  let formContent = null;
+  if (open) {
+    formContent = <Register closeDialog={handleClose} />;
+  } else if (openLogin) {
+    formContent = <Login closeDialog={handleClose} />;
+  }
   return (
     <div className={classes.root}>
       <Box sx={{ flexGrow: 1 }}>
@@ -81,13 +94,14 @@ export default function Header() {
             </Typography>
             <NavLink className={classes.link} to="/todos"><Button color="inherit">Todos</Button></NavLink>
             <NavLink className={classes.link} to="/albums"><Button color="inherit">Albums</Button></NavLink>
-            <Button color="inherit" onClick={handleClickOpen}>Regeister</Button>
+            <Button color="inherit" onClick={() => handleClickOpen("L")}>Login</Button>
+            <Button color="inherit" onClick={() => handleClickOpen("R")}>Regeister</Button>
           </Toolbar>
         </AppBar>
       </Box>
 
       <Dialog
-        open={open}
+        open={open || openLogin}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -96,7 +110,7 @@ export default function Header() {
         </IconButton>
         <DialogContent>
           <DialogContentText>
-            <Register closeDialog={handleClose}></Register>
+            {formContent}
           </DialogContentText>
         </DialogContent>
 

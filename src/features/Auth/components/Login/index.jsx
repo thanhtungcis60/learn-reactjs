@@ -1,35 +1,30 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import RegisterForm from '../RegisterForm';
-import { register } from 'features/Auth/userSlice';
+import LoginForm from '../LoginForm';
+import { login } from 'features/Auth/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 
-Register.propTypes = {
+Login.propTypes = {
     closeDialog: PropTypes.func,
 };
 
 
-function Register(props) {
+function Login(props) {
     const { closeDialog } = props;
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async (values) => {
         try {
-            // auto set username = email
-            values.username = values.email;
-
-            const action = register(values); // Giả định 'register' là một createAsyncThunk hoặc một action creator khác
-            const resultAction = await dispatch(action);
+            const action = login(values); // Giả định 'register' là một createAsyncThunk hoặc một action creator khác
+            const resultAction = await dispatch(action);// Gọi action để đăng nhập
             // unwrapResult chỉ có sẵn nếu 'action' là một createAsyncThunk action
             // import { unwrapResult } from '@reduxjs/toolkit'; 
             const user = unwrapResult(resultAction);
 
-
-            console.log('New user', user);
-            enqueueSnackbar('Register successfully!', { variant: 'success', autoHideDuration: 3000 });
+            enqueueSnackbar('Login successfully!', { variant: 'success', autoHideDuration: 3000 });
             if (closeDialog) {
                 closeDialog(); // Đóng dialog nếu có
             }
@@ -41,9 +36,9 @@ function Register(props) {
     };
     return (
         <div>
-            <RegisterForm onSubmit={handleSubmit}></RegisterForm>
+            <LoginForm onSubmit={handleSubmit}></LoginForm>
         </div>
     );
 }
 
-export default Register;
+export default Login;
