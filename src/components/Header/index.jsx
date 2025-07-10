@@ -16,14 +16,16 @@
 
 // export default Header;
 
-import { Dialog, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { Close } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
+import { hover } from '@testing-library/user-event/dist/hover';
 import Register from 'features/Auth/components/Register';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
@@ -41,7 +43,14 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
     color: '#fff',
-  }
+  },
+  closeButton: {
+    position: 'absolute',// Đặt vị trí tuyệt đối để nút đóng nằm trên dialog
+    top: theme.spacing(1),// Đặt khoảng cách từ trên xuống
+    right: theme.spacing(1),// Đặt khoảng cách từ bên phải
+    color: theme.palette.grey[500],
+    zIndex: 1,// Đặt zIndex để nút đóng nằm trên dialog
+  },
 }));
 
 
@@ -82,17 +91,20 @@ export default function Header() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <IconButton className={classes.closeButton} onClick={handleClose}>
+          <Close />
+        </IconButton>
         <DialogContent>
           <DialogContentText>
             <Register closeDialog={handleClose}></Register>
           </DialogContentText>
         </DialogContent>
 
-        <DialogActions>
+        {/* <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </div>
   );
