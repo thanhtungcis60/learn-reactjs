@@ -16,14 +16,14 @@
 
 // export default Header;
 
-import { Dialog, DialogActions, DialogContent, DialogContentText, Icon, IconButton } from '@material-ui/core';
+import { Avatar, Dialog, DialogActions, DialogContent, DialogContentText, Divider, Icon, IconButton, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { AccountCircle, Close } from '@material-ui/icons';
+import { AccountCircle, Close, Settings } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
 import { hover } from '@testing-library/user-event/dist/hover';
 import Login from 'features/Auth/components/Login';
@@ -64,6 +64,15 @@ export default function Header() {
   const isLoggedIn = !!loggedInUser.id; // Kiểm tra xem người dùng đã đăng nhập hay chưa
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClickMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,7 +103,7 @@ export default function Header() {
               <Button color="inherit" onClick={handleClickOpen}>Login or Regeister</Button>
             )}
             {isLoggedIn && (
-              <IconButton color='inherit'>
+              <IconButton color='inherit' onClick={handleClickMenu}>
                 <AccountCircle />
               </IconButton>
             )}
@@ -102,6 +111,28 @@ export default function Header() {
           </Toolbar>
         </AppBar>
       </Box>
+
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)} // Đảm bảo open là boolean, true nếu anchorEl có giá trị
+        onClose={handleCloseMenu}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        getContentAnchorEl={null} // Đặt null để không sử dụng content anchor, tránh lỗi trong các phiên bản MUI mới hơn
+      // getPaperAnchorEl // Có thể là getContentAnchorEl như trong ảnh, tùy thuộc vào phiên bản MUI
+      // getcontentAnchorEl // Prop này có thể không còn được sử dụng trong các phiên bản MUI mới hơn hoặc có tên khác.
+      // Nếu bạn gặp lỗi, hãy kiểm tra tài liệu MUI cho phiên bản của bạn.
+      >
+        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+        <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+      </Menu>
 
       <Dialog
         open={open}
@@ -138,6 +169,7 @@ export default function Header() {
             Cancel
           </Button>
         </DialogActions> */}
+
       </Dialog>
     </div>
   );
