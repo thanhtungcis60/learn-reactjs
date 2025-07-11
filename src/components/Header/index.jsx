@@ -16,19 +16,20 @@
 
 // export default Header;
 
-import { Dialog, DialogActions, DialogContent, DialogContentText, IconButton } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, Icon, IconButton } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { Close } from '@material-ui/icons';
+import { AccountCircle, Close } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
 import { hover } from '@testing-library/user-event/dist/hover';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
-import { useState } from 'react';
+import { use, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +60,8 @@ const MODE = {
   LOGIN: 'L',
 }
 export default function Header() {
+  const loggedInUser = useSelector((state) => state.user.current);// Lấy thông tin người dùng đã đăng nhập từ Redux store
+  const isLoggedIn = !!loggedInUser.id; // Kiểm tra xem người dùng đã đăng nhập hay chưa
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
 
@@ -87,7 +90,15 @@ export default function Header() {
             </Typography>
             <NavLink className={classes.link} to="/todos"><Button color="inherit">Todos</Button></NavLink>
             <NavLink className={classes.link} to="/albums"><Button color="inherit">Albums</Button></NavLink>
-            <Button color="inherit" onClick={handleClickOpen}>Login or Regeister</Button>
+            {!isLoggedIn && (
+              <Button color="inherit" onClick={handleClickOpen}>Login or Regeister</Button>
+            )}
+            {isLoggedIn && (
+              <IconButton color='inherit'>
+                <AccountCircle />
+              </IconButton>
+            )}
+
           </Toolbar>
         </AppBar>
       </Box>
