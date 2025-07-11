@@ -28,8 +28,9 @@ import CodeIcon from '@material-ui/icons/Code';
 import { hover } from '@testing-library/user-event/dist/hover';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
+import { logout } from 'features/Auth/userSlice';
 import { use, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +61,7 @@ const MODE = {
   LOGIN: 'L',
 }
 export default function Header() {
+  const dispatch = useDispatch(); // Sử dụng useDispatch để lấy hàm dispatch từ Redux store
   const loggedInUser = useSelector((state) => state.user.current);// Lấy thông tin người dùng đã đăng nhập từ Redux store
   const isLoggedIn = !!loggedInUser.id; // Kiểm tra xem người dùng đã đăng nhập hay chưa
   const [open, setOpen] = useState(false);
@@ -84,6 +86,11 @@ export default function Header() {
       return;
     }
     setOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    const action = logout();
+    dispatch(action); // Gọi action logout để đăng xuất người dùng
   };
 
   const classes = useStyles();
@@ -131,7 +138,7 @@ export default function Header() {
       // Nếu bạn gặp lỗi, hãy kiểm tra tài liệu MUI cho phiên bản của bạn.
       >
         <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-        <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
       </Menu>
 
       <Dialog
