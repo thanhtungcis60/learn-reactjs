@@ -1,6 +1,6 @@
 import axios from 'axios';
 const axiosClient = axios.create({
-    baseURL: 'https://api.ezfrontend.com/',
+    baseURL: 'https://json-server-na4j.onrender.com/api/',
     headers: {
         'Content-Type': 'application/json',
     },

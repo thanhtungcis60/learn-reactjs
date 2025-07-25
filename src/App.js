@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import Header from 'components/Header';
 import { Button } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import ProductFeature from 'features/Product';
 
 //Styled-components CSS in JS
 const Title = styled.h1`
@@ -74,6 +75,7 @@ function App() {
         <Route path="/" component={CounterFeature} exact />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
+        <Route path="/products" component={ProductFeature} />
         {/* <Route component={NotFound} /> */}
       </Switch>
     </div>
