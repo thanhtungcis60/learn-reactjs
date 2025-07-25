@@ -50,19 +50,22 @@ function App() {
   return (
     <div className='app'>
       {/* <Title color="skyblue">Heading</Title> */}
-      <Header></Header>
-      <Button onClick={showNoti}>Show noti</Button>
-      <h1>React Route</h1>
+      <Header />
+      {/* <Button onClick={showNoti}>Show noti</Button>
+      <h1>React Route</h1> */}
       {/* <p>Count: {count}</p>
       <button onClick={() => setCount(count + 1)}>Increase</button>
       <Hero name="Hero Name" /> */}
       {/* <Counter /> */}
-      <p>
-        <NavLink to="/todos">Go to Todo</NavLink>{/* Khác biệt với Link, NavLink sẽ tự động thêm class active nếu đường dẫn hiện tại khớp với đường dẫn của NavLink */}
+      
+      {/* Khác biệt với Link, NavLink sẽ tự động thêm class active nếu đường dẫn hiện tại khớp với đường dẫn của NavLink */}
+      {/* <p>
+        <NavLink to="/todos">Go to Todo</NavLink>
       </p>
       <p>
         <NavLink to="/albums">Go to Albums</NavLink>
-      </p>
+      </p> */}
+
       <Switch>
         <Redirect from="/home" to="/" exact />
         <Route
