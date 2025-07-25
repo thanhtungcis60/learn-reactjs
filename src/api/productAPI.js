@@ -1,9 +1,21 @@
 import axiosClient from './axiosClient';
 
 const productAPI = {
-  getAll(params) {
-    const url = '/products';
-    return axiosClient.get(url, { params });
+  // getAll(params) {
+  //   const url = '/products';
+  //   return axiosClient.get(url, { params });
+  // },
+  async getAll(params) {
+    const newParams = { ...params };
+    newParams._page = !params._page || params._page <= 1 ? 1 : params._page;
+
+    // Fetch product list + count
+    const result = await axiosClient.get('/products', {
+      params: newParams,
+    });
+
+    // Build response and return
+    return result;
   },
 
   get(id) {
