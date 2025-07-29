@@ -2,6 +2,7 @@ import { Box, Container, Grid, makeStyles, Paper, Typography } from "@material-u
 import productAPI from "api/productAPI";
 import { useEffect, useState } from "react";
 import ProductSkeletonList from "../components/ProductSkeletonList";
+import ProductList from "../components/ProductList";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         width: '250px'
     },
     right: {
-        flex: '1 1 auto',
+        flex: '1 1 0',
     },
 }));
 ListPage.propTypes = {
@@ -29,7 +30,7 @@ function ListPage(props) {
             } catch (error) {
                 console.error('Failed to fetch product list: ', error);
             }
-            // setLoading(false);
+            setLoading(false);
         })();
     }, []);
 
@@ -42,7 +43,7 @@ function ListPage(props) {
                     </Grid>
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
-                            {loading ? <ProductSkeletonList /> : <Typography>PROD LIST</Typography>}
+                            {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
                         </Paper>
                     </Grid>
                 </Grid>
