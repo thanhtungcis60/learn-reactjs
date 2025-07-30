@@ -1,9 +1,16 @@
 import axiosClient from './axiosClient';
 
 const categoryAPI = {
-  getAll(params) {
-    const url = '/categories';
-    return axiosClient.get(url, { params });
+  // getAll() {
+  //   const url = '/categories';
+  //   return axiosClient.get(url);
+  // },
+  async getAll() {
+    // Fetch category list
+    const result = await axiosClient.get('/categories', {});
+
+    // Build response and return
+    return result;
   },
 
   get(id) {
