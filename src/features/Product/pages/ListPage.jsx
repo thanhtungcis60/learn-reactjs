@@ -3,6 +3,7 @@ import productAPI from "api/productAPI";
 import { useEffect, useState } from "react";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductList from "../components/ProductList";
+import { Pagination } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -12,6 +13,13 @@ const useStyles = makeStyles((theme) => ({
     right: {
         flex: '1 1 0',
     },
+    pagination: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexFlow: 'row wrap',
+        marginTop: '20px',
+        paddingBottom: '20px',
+    }
 }));
 ListPage.propTypes = {
 
@@ -20,19 +28,22 @@ ListPage.propTypes = {
 function ListPage(props) {
     const classes = useStyles();
     const [productList, setProductList] = useState([]);
+    const [paginationObj, setPaginationObj] = useState({});
     const [loading, setLoading] = useState(true);
+    const [filters, setFilters] = useState({ _page: 1, _limit: 12 });
 
     useEffect(() => {
         (async () => {
             try {
-                const { data, pagination } = await productAPI.getAll({ _page: 1, _limit: 10 });
+                const { data, pagination } = await productAPI.getAll(filters);
                 setProductList(data);
+                setPaginationObj(pagination);
             } catch (error) {
                 console.error('Failed to fetch product list: ', error);
             }
             setLoading(false);
         })();
-    }, []);
+    }, [filters]);
 
     return (
         <Box>
@@ -44,6 +55,14 @@ function ListPage(props) {
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
                             {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
+                            <Box className={classes.pagination}>
+                                <Pagination
+                                    count={Math.ceil(paginationObj._totalRows / paginationObj._limit)}
+                                    page={paginationObj.page}
+                                    color="primary"
+                                    onChange={(event, newValue) => { setFilters((prevFiters) => ({ ...prevFiters, _page: newValue })) }} />
+                            </Box>
+
                         </Paper>
                     </Grid>
                 </Grid>
