@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductList from "../components/ProductList";
 import { Pagination } from "@material-ui/lab";
+import ProductSort from "../components/ProductSort";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -30,7 +31,7 @@ function ListPage(props) {
     const [productList, setProductList] = useState([]);
     const [paginationObj, setPaginationObj] = useState({});
     const [loading, setLoading] = useState(true);
-    const [filters, setFilters] = useState({ _page: 1, _limit: 12 });
+    const [filters, setFilters] = useState({ _page: 1, _limit: 12, _sort: 'salePrice', _order: 'asc' });
 
     useEffect(() => {
         (async () => {
@@ -45,6 +46,16 @@ function ListPage(props) {
         })();
     }, [filters]);
 
+    const handlePageChange = (event, newValue) => {
+        setFilters((prevFiters) => ({ ...prevFiters, _page: newValue }))
+    }
+
+    const handleSortChange = (newOrder) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            _order: newOrder,
+        }));
+    }
     return (
         <Box>
             <Container>
@@ -54,13 +65,14 @@ function ListPage(props) {
                     </Grid>
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
+                            <ProductSort currentOrder={filters._order} onchange={handleSortChange} />
                             {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
                             <Box className={classes.pagination}>
                                 <Pagination
                                     count={Math.ceil(paginationObj._totalRows / paginationObj._limit)}
                                     page={paginationObj.page}
                                     color="primary"
-                                    onChange={(event, newValue) => { setFilters((prevFiters) => ({ ...prevFiters, _page: newValue })) }} />
+                                    onChange={handlePageChange} />
                             </Box>
 
                         </Paper>
