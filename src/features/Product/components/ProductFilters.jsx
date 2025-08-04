@@ -11,14 +11,13 @@ ProductFilters.propTypes = {
 function ProductFilters({ filters, onchange }) {
     const handleCategoryChange = (newCategoryID) => {
         if (onchange) {
-            const newFilters = { ...filters, categoryId: newCategoryID };
+            const newFilters = { categoryId: newCategoryID };
             onchange(newFilters);
         }
     };
-    const handlePriceChange = (newPrice) => {
+    const handlePriceChange = (newPriceObj) => {
         if (onchange) {
-            const newFilters = { ...filters, salePrice: newPrice };
-            onchange(newFilters);
+            onchange(newPriceObj);
         }
     };
     return (
