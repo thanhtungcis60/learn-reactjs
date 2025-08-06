@@ -58,10 +58,22 @@ function ListPage(props) {
         }));
     }
     const handleFiltersChange = (newFilters) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            ...newFilters,
-        }));
+        setFilters((prevFilters) => {
+            const combined = {
+                ...prevFilters,
+                ...newFilters,
+            };
+
+            // Nếu categoryId là rỗng, loại bỏ nó khỏi filters
+            // Điều này sẽ giúp tránh việc gửi categoryId rỗng trong request
+            // và đảm bảo rằng tất cả các filters khác vẫn được giữ nguyên
+            if (newFilters.hasOwnProperty('categoryId') && newFilters['categoryId'] === '') {
+                const { categoryId, ...rest } = combined;// gỡ bỏ key categoryId khỏi newFilters bằng destructuring
+                return rest;
+            }
+
+            return combined;
+        });
     }
     return (
         <Box>
