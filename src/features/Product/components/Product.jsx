@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
-import { PRODUCT_DEFAULT_PLACEHOLDER, THUMBNAIL_PLACEHOLDER } from 'constants/index';
+import { LOCAL_HOST, PRODUCT_DEFAULT_PLACEHOLDER, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 
 Product.propTypes = {
     product: PropTypes.object,
 };
 
 function Product({ product }) {
-    const thumbnailUrl = product.thumbnail ? product.thumbnail : THUMBNAIL_PLACEHOLDER;
+    const thumbnailUrl = product.thumbnail ? product.thumbnail : `${LOCAL_HOST}/${THUMBNAIL_PLACEHOLDER}`;
     return (
         <Box padding={1} minHeight="215px">
             {/* <Skeleton variant="rect" width="100%" height={118} /> */}
