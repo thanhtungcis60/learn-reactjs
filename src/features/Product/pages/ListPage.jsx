@@ -6,6 +6,8 @@ import ProductList from "../components/ProductList";
 import { Pagination } from "@material-ui/lab";
 import ProductSort from "../components/ProductSort";
 import ProductFilters from "../components/ProductFilters";
+import { Filter } from "@material-ui/icons";
+import FilterViewer from "../components/FilterViewer";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -75,6 +77,9 @@ function ListPage(props) {
             return combined;
         });
     }
+    const setNewFilters = (newFilters) => {
+        setFilters(newFilters);
+    };
     return (
         <Box>
             <Container>
@@ -87,6 +92,7 @@ function ListPage(props) {
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
                             <ProductSort currentOrder={filters._order} onchange={handleSortChange} />
+                            <FilterViewer filters={filters} onChange={setNewFilters} />
                             {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
                             <Box className={classes.pagination}>
                                 <Pagination
