@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, makeStyles } from '@material-ui/core';
 
@@ -89,9 +89,13 @@ function FilterViewer({ filters = {}, onChange = null, categoryList = [] }) {
             onToggle: (filters) => { },
         },
     ];
+
+    const isVisibleFilter = useMemo(() => {
+        return FILTER_LIST.filter((x) => x.isVisible(filters));
+    });
     return (
         <Box component="ul" className={classes.root}>
-            {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
+            {isVisibleFilter.map((x) => (
                 <li key={x.id}>
                     <Chip
                         label={x.getLabel(filters)}

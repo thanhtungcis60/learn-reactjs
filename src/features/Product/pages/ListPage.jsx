@@ -1,6 +1,6 @@
 import { Box, Container, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import productAPI from "api/productAPI";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductList from "../components/ProductList";
 import { Pagination } from "@material-ui/lab";
@@ -9,6 +9,8 @@ import ProductFilters from "../components/ProductFilters";
 import { Filter } from "@material-ui/icons";
 import FilterViewer from "../components/FilterViewer";
 import categoryAPI from 'api/categoryAPI';
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import queryString from "query-string";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -35,8 +37,18 @@ function ListPage(props) {
     const [productList, setProductList] = useState([]);
     const [paginationObj, setPaginationObj] = useState({});
     const [loading, setLoading] = useState(true);
-    const [filters, setFilters] = useState({ _page: 1, _limit: 12, _sort: 'salePrice', _order: 'asc' });
+    // const [filters, setFilters] = useState({ _page: 1, _limit: 12, _sort: 'salePrice', _order: 'asc' });
     const [categoryList, setCategoryList] = useState([]);
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = queryString.parse(location.search);
+    const [filters, setFilters] = useState({
+        ...queryParams,
+        _page: Number.parseInt(queryParams._page) || 1,
+        _limit: Number.parseInt(queryParams._limit) || 12,
+        _sort: 'salePrice',
+        _order: queryParams._order || 'asc'
+    });
 
     useEffect(() => {
         (async () => {
@@ -67,6 +79,13 @@ function ListPage(props) {
             }
         })();
     }, []);
+    useEffect(() => {
+        const queryParams = queryString.stringify(filters);
+        history.push({
+            pathname: history.location.pathname,
+            search: queryParams,
+        });
+    }, [filters, history]);
 
     const handlePageChange = (event, newValue) => {
         setFilters((prevFiters) => ({ ...prevFiters, _page: newValue }))
