@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import categoryAPI from 'api/categoryAPI';
+
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -12,27 +12,12 @@ const useStyles = makeStyles((theme) => ({
 
 FilterByCategory.propTypes = {
     onchange: PropTypes.func,
+    categoryList: PropTypes.array,
 };
 
-function FilterByCategory({ onchange }) {
+function FilterByCategory({ onchange = null, categoryList = [] }) {
     const classes = useStyles();
-    const [categoryList, setCategoryList] = useState([]);
-    useEffect(() => {
-        (async () => {
-            try {
-                const lstCategory = await categoryAPI.getAll();
-                const mappedCategories = lstCategory.map((item) => ({
-                    id: item.id,
-                    name: item.name,
-                }));
-                setCategoryList([{ id: '', name: 'Tất cả' },
-                ...mappedCategories
-                ]);
-            } catch (error) {
-                console.error('Failed to fetch category list: ', error);
-            }
-        })();
-    }, []);
+
 
     return (
         <Box>

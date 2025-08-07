@@ -8,6 +8,7 @@ import ProductSort from "../components/ProductSort";
 import ProductFilters from "../components/ProductFilters";
 import { Filter } from "@material-ui/icons";
 import FilterViewer from "../components/FilterViewer";
+import categoryAPI from 'api/categoryAPI';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -35,6 +36,7 @@ function ListPage(props) {
     const [paginationObj, setPaginationObj] = useState({});
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({ _page: 1, _limit: 12, _sort: 'salePrice', _order: 'asc' });
+    const [categoryList, setCategoryList] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -48,6 +50,23 @@ function ListPage(props) {
             setLoading(false);
         })();
     }, [filters]);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const lstCategory = await categoryAPI.getAll();
+                const mappedCategories = lstCategory.map((item) => ({
+                    id: item.id,
+                    name: item.name,
+                }));
+                setCategoryList([{ id: '', name: 'Tất cả' },
+                ...mappedCategories
+                ]);
+            } catch (error) {
+                console.error('Failed to fetch category list: ', error);
+            }
+        })();
+    }, []);
 
     const handlePageChange = (event, newValue) => {
         setFilters((prevFiters) => ({ ...prevFiters, _page: newValue }))
@@ -86,13 +105,13 @@ function ListPage(props) {
                 <Grid container spacing={1}>
                     <Grid item className={classes.left}>
                         <Paper elevation={0}>
-                            <ProductFilters filters={filters} onchange={handleFiltersChange} />
+                            <ProductFilters filters={filters} onchange={handleFiltersChange} categoryList={categoryList} />
                         </Paper>
                     </Grid>
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
                             <ProductSort currentOrder={filters._order} onchange={handleSortChange} />
-                            <FilterViewer filters={filters} onChange={setNewFilters} />
+                            <FilterViewer filters={filters} onChange={setNewFilters} categoryList={categoryList} />
                             {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
                             <Box className={classes.pagination}>
                                 <Pagination
