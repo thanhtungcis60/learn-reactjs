@@ -18,9 +18,14 @@ const productAPI = {
     return result;
   },
 
-  get(id) {
-    const url = `/products/${id}`;
-    return axiosClient.get(url);
+  async get(id) {
+    // Fetch product list + count
+    const result = await axiosClient.get('/products', {
+      params: { id: id },
+    });
+
+    // Build response and return
+    return result;
   },
 
   add(data) {

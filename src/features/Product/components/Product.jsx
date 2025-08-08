@@ -2,15 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
 import { LOCAL_HOST, PRODUCT_DEFAULT_PLACEHOLDER, THUMBNAIL_PLACEHOLDER } from 'constants/index';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 Product.propTypes = {
     product: PropTypes.object,
 };
 
 function Product({ product }) {
+    const history = useHistory();
     const thumbnailUrl = product.thumbnail ? product.thumbnail : `${LOCAL_HOST}/${THUMBNAIL_PLACEHOLDER}`;
+
+    const handleClick = () => {
+        //Navigate to product detail page: /products/:productId
+        history.push(`/products/${product.id}`);
+    }
     return (
-        <Box padding={1} minHeight="215px">
+        <Box padding={1} minHeight="215px" onClick={handleClick} style={{ cursor: 'pointer' }}>
             {/* <Skeleton variant="rect" width="100%" height={118} /> */}
             <Box padding={1}>
                 <img
