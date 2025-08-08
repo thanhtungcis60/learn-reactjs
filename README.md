@@ -14,6 +14,8 @@ npm install styled-components@^5.0.0 --legacy-peer-deps
 npm install notistack@1.0.10 --legacy-peer-deps
 npm i @material-ui/lab@^4.0.0-alpha.57 --legacy-peer-deps --save
 
+# Để cài package mới nhất: npm i react-router-dom@latest
+
 //Extension:
 Prettier
 ES7+ React/Redux/React-Native snippets

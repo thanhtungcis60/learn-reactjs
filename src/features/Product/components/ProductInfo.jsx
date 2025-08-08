@@ -29,9 +29,7 @@ ProductInfo.propTypes = {
 };
 
 function ProductInfo({ product = {} }) {
-    console.log('ProductInfo', JSON.stringify(product));
     const classes = useStyles();
-    console.log('ProductInfo', JSON.stringify(product, null, 2));
     const { name, description, salePrice, originalPrice, promotionPercent } = product;
     return (
         <Box className={classes.root}>
