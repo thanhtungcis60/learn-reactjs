@@ -7,6 +7,7 @@ import useProductDetail from '../hooks/useProductDetail';
 import ProductInfo from '../components/ProductInfo';
 import { Add } from '@material-ui/icons';
 import AddToCartForm from '../components/AddToCartForm';
+import ProductMenu from '../components/ProductMenu';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -56,6 +57,8 @@ function DetailPage(props) {
                         </Grid>
                     </Grid>
                 </Paper>
+
+                <ProductMenu />
             </Container>
         </Box>
     );
