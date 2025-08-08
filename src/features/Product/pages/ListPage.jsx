@@ -49,8 +49,8 @@ function ListPage(props) {
             _limit: Number.parseInt(params._limit) || 12,
             _sort: 'salePrice',
             _order: params._order || 'asc',
-            isPromotion: params.isPromotion === 'true',
-            isFreeShip: params.isFreeShip === 'true'
+            // isPromotion: params.isPromotion === 'true',
+            // isFreeShip: params.isFreeShip === 'true'
         };
     }, [location.search]);
 

@@ -7,12 +7,16 @@ ProductThumbnail.propTypes = {
     product: PropTypes.object,
 };
 
-function ProductThumbnail(product) {
-    console.log('ProductThumbnail', product.product.thumbnail);
-    const thumbnailUrl = product.product.thumbnail ? product.product.thumbnail : `${LOCAL_HOST}/${PRODUCT_DEFAULT_PLACEHOLDER}`;
+function ProductThumbnail({ product = {} }) {
+    const thumbnailUrl = product.thumbnail ? product.thumbnail : `${LOCAL_HOST}/${PRODUCT_DEFAULT_PLACEHOLDER}`;
     return (
         <Box>
-            <img src={thumbnailUrl} width="100%" />
+            <img src={thumbnailUrl} alt={product.name}
+                width="100%"
+                onError={(e) => {
+                    e.target.onerror = null; // Ngăn gọi lặp vô hạn nếu ảnh fallback cũng lỗi
+                    e.target.src = `${LOCAL_HOST}/${PRODUCT_DEFAULT_PLACEHOLDER}`; // Ảnh mặc định bạn đã có
+                }} />
         </Box>
     );
 }

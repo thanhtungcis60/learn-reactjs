@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
 import { LOCAL_HOST, PRODUCT_DEFAULT_PLACEHOLDER, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { formatPrice } from 'utils';
 
 Product.propTypes = {
     product: PropTypes.object,
@@ -36,7 +37,7 @@ function Product({ product }) {
             <Typography variant="body2">{product.name}</Typography>
             <Typography variant="body2">
                 <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
-                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product.salePrice)}
+                    {formatPrice(product.salePrice)}
                 </Box>
                 {product.promotionPercent > 0 ? ` - ${product.promotionPercent}%` : ''}</Typography>
         </Box>
