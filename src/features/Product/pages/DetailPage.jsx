@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Box, Container, Grid, LinearProgress, makeStyles, Paper } from '@material-ui/core';
 import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../hooks/useProductDetail';
 import ProductInfo from '../components/ProductInfo';
@@ -13,7 +13,9 @@ import ProductDesciption from '../components/ProductDesciption';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-    root: {},
+    root: {
+        paddingBottom: theme.spacing(3),
+    },
     left: {
         width: '400px',
         padding: theme.spacing(1.5),
@@ -29,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row wrap',
         marginTop: '20px',
         paddingBottom: '20px',
+    },
+    loading: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%'
     }
 }));
 
@@ -41,7 +49,9 @@ function DetailPage(props) {
     const { product, loading } = useProductDetail(productId);
 
     if (loading) {
-        return <Box>Loading...</Box>;
+        return <Box className={classes.loading}>
+            <LinearProgress />
+        </Box>;
     }
 
     const handleAddToCart = (values) => {
@@ -49,7 +59,7 @@ function DetailPage(props) {
     }
 
     return (
-        <Box>
+        <Box className={classes.root}>
             <Container>
                 <Paper elevation={0}>
                     <Grid container>
