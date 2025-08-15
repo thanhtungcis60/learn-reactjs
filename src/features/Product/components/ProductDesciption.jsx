@@ -1,13 +1,18 @@
+import { Paper } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import DOMPurify from 'dompurify';
 
 ProductDesciption.propTypes = {
-
+    product: PropTypes.object,
 };
 
-function ProductDesciption(props) {
+function ProductDesciption({ product = {} }) {
+    const safeDescription = DOMPurify.sanitize(product.description);
     return (
-        <div>
-            Descriptions
-        </div>
+        <Paper elevation={0} style={{ padding: '15px' }}>
+            <div dangerouslySetInnerHTML={{ __html: safeDescription }} />
+        </Paper>
+
     );
 }
 

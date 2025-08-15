@@ -66,7 +66,7 @@ function DetailPage(props) {
                 <ProductMenu />
                 <Switch>
                     <Route exact path={path} >
-                        <ProductDesciption />
+                        <ProductDesciption product={product} />
                     </Route>
                     <Route path={`${path}/additional`}>
                         <ProductAdditional />
