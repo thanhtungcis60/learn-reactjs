@@ -14,17 +14,16 @@ import Header from 'components/Header';
 import { Button } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import ProductFeature from 'features/Product';
+import CartFeature from 'features/Cart';
 
 //Styled-components CSS in JS
 const Title = styled.h1`
   text-align: center;
   font-weight: bold;
-  color: ${props => props.color || 'green'};
+  color: ${(props) => props.color || 'green'};
 `;
 
-App.propTypes = {
-
-};
+App.propTypes = {};
 
 function App() {
   const [count, setCount] = React.useState(0);
@@ -43,12 +42,12 @@ function App() {
   const showNoti = () => {
     enqueueSnackbar('This is a notification', {
       variant: 'info',
-      autoHideDuration: 3000
+      autoHideDuration: 3000,
     });
-  }
+  };
 
   return (
-    <div className='app'>
+    <div className="app">
       {/* <Title color="skyblue">Heading</Title> */}
       <Header />
       {/* <Button onClick={showNoti}>Show noti</Button>
@@ -57,7 +56,7 @@ function App() {
       <button onClick={() => setCount(count + 1)}>Increase</button>
       <Hero name="Hero Name" /> */}
       {/* <Counter /> */}
-      
+
       {/* Khác biệt với Link, NavLink sẽ tự động thêm class active nếu đường dẫn hiện tại khớp với đường dẫn của NavLink */}
       {/* <p>
         <NavLink to="/todos">Go to Todo</NavLink>
@@ -71,14 +70,13 @@ function App() {
         <Route
           path="/post-list/:postId"
           exact
-          render={({ match }) => (
-            <Redirect to={`/posts/${match.params.postId}`} />
-          )}
+          render={({ match }) => <Redirect to={`/posts/${match.params.postId}`} />}
         />
         <Route path="/" component={CounterFeature} exact />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
         <Route path="/products" component={ProductFeature} />
+        <Route path="/cart" component={CartFeature} />
         {/* <Route component={NotFound} /> */}
       </Switch>
     </div>
