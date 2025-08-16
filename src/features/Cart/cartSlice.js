@@ -13,9 +13,31 @@ const cartSlice = createSlice({
     hideMiniCart: (state) => {
       state.showMiniCart = false;
     },
+    addToCart(state, action) {
+      const newItem = action.payload;
+      const index = state.cartItems.findIndex((x) => x.id === newItem.id);
+      if (index >= 0) {
+        state.cartItems[index].quantity += newItem.quantity;
+      } else {
+        state.cartItems.push(newItem);
+      }
+    },
+    setQuantity(state, action) {
+      const { id, quantity } = action.payload;
+      const index = state.cartItems.findIndex((x) => x.id === id);
+      if (index >= 0) {
+        state.cartItems[index].quantity = quantity;
+      }
+    },
+    removeFromCart(state, action) {
+      const idNeedToRemove = action.payload;
+      //state là object nên có thể hỗ trợ ImmerJS
+      //có thể mutate state trực tiếp mà ko cần clone dữ liệu ra
+      state.cartItems = state.cartItems.filter((x) => x.id !== idNeedToRemove);
+    },
   },
 });
 
 const { actions, reducer } = cartSlice;
-export const { showMiniCart, hideMiniCart } = actions;
+export const { showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart } = actions;
 export default reducer;
