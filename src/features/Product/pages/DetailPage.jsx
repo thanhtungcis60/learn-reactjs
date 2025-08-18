@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Container, Grid, LinearProgress, makeStyles, Paper } from '@material-ui/core';
+import { addToCart } from 'features/Cart/cartSlice';
+import { useDispatch } from 'react-redux';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import AddToCartForm from '../components/AddToCartForm';
+import ProductAdditional from '../components/ProductAdditional';
+import ProductDesciption from '../components/ProductDesciption';
+import ProductInfo from '../components/ProductInfo';
+import ProductMenu from '../components/ProductMenu';
+import ProductReviews from '../components/ProductReviews';
 import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../hooks/useProductDetail';
-import ProductInfo from '../components/ProductInfo';
-import { Add } from '@material-ui/icons';
-import AddToCartForm from '../components/AddToCartForm';
-import ProductMenu from '../components/ProductMenu';
-import ProductAdditional from '../components/ProductAdditional';
-import ProductReviews from '../components/ProductReviews';
-import ProductDesciption from '../components/ProductDesciption';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,9 +43,10 @@ function DetailPage(props) {
     const classes = useStyles();
     const match = useRouteMatch();
     const { params: { productId }, url, path } = match;
-    console.log("url", url);
-    console.log("path", path);
+    // console.log("url", url);
+    // console.log("path", path);
     const { product, loading } = useProductDetail(productId);
+    const dispatch = useDispatch();
 
     if (loading) {
         return <Box className={classes.loading}>
@@ -54,8 +54,15 @@ function DetailPage(props) {
         </Box>;
     }
 
-    const handleAddToCart = (values) => {
-        console.log('Add to cart', values);
+    const handleAddToCart = ({ quantity }) => {
+        // console.log('Add to cart', quantity);
+        const action = addToCart({
+            id: product.id,
+            product,
+            quantity
+        });
+        // console.log(action);
+        dispatch(action);
     }
 
     return (
