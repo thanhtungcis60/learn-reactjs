@@ -8,5 +8,5 @@ export const cartItemsCountSelector = createSelector(cartItemsSelector, (cartIte
 );
 //Sum number of products in cart
 export const cartItemsSumSelector = createSelector(cartItemsSelector, (cartItems) =>
-  cartItems.reduce((total, item) => total + item.quantity * item.salePrice, 0)
+  cartItems.reduce((total, item) => total + item.quantity * item.product.salePrice, 0)
 );
